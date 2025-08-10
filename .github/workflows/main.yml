@@ -1,0 +1,51 @@
+name: absensi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    name: Build & Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.15.1'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Add google-services.json
+        run: |
+          mkdir -p android/app
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Create Git tag
+        id: create_tag
+        run: |
+          VERSION=$(date +'%Y.%m.%d-%H%M')
+          echo "version_tag=$VERSION" >> $GITHUB_ENV
+          git tag $VERSION
+          git push origin $VERSION
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.version_tag }}
+          name: Release ${{ env.version_tag }}
+          draft: false
+          prerelease: false
+          files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
