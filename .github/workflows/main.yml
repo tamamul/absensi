@@ -20,6 +20,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set JAVA_HOME and update PATH
+        run: |
+          echo "JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64" >> $GITHUB_ENV
+          echo "/usr/lib/jvm/temurin-17-jdk-amd64/bin" >> $GITHUB_PATH
+
+      - name: Check java version
+        run: java -version
+
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
