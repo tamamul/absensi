@@ -45,7 +45,7 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
 
       - name: Build release APK (verbose)
-        run: flutter build apk --release --verbose --stacktrace
+        run: flutter build apk --release --verbose
 
       - name: Create Git tag
         id: create_tag
