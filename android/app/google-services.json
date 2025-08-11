@@ -8,6 +8,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:524730194825:android:1f9cc105167d00b1385f58",
+        "android_client_info": {
+          "package_name": "com.ronaldi.absensi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw-CVc_3mNO0dc3f1M3ygqPMqj-cx26sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:524730194825:android:e4b366292f7dee53385f58",
         "android_client_info": {
           "package_name": "com.samsudin.flutterabsensi"
